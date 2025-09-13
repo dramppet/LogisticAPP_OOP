@@ -1,5 +1,5 @@
 from typing import Optional, List,Tuple
-from datetime import datetime
+from datetime import datetime, timedelta
 from functools import reduce
 
 from models.delivery_package import DeliveryPackage
@@ -45,7 +45,8 @@ class DeliveryRoute:
         
     @property
     def finish_route(self):
-        return self.total_distance() - Truck._MAX_SPEED
+        len_distance = self.total_distance / Truck._MAX_SPEED
+        return self.departure_time + timedelta(len_distance)
         
     def info(self)->str:
         return {
@@ -53,8 +54,9 @@ class DeliveryRoute:
             f'Start location {self._location[0]}'
             f'End location {self._location[-1]}'
             f'Create route {self.departure_time}'
-            f'End route {self.finish_route()}'
+            f'End route {self.finish_route}'
             f'Truck {Truck.name}'
+            f'Total distance: {self.total_distance}'
         }
 
     
