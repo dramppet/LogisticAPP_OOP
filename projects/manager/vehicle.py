@@ -14,11 +14,10 @@ class VehicleManager:
         self.truckLocation: Dict[str, List[Truck]] = {}
         self.disperse_trucks()
 
-    # Disperse trucks by city and set truck location
     def disperse_trucks(self) -> Dict[str, List[Truck]]:
         for location in Map._locations:
             selected = random.sample(self.vehicles, 6)
-            # задаваме текущата локация на всеки избран камион
+            
             for truck in selected:
                 truck.location = location
             self.truckLocation[location] = selected
